@@ -18,4 +18,37 @@ const create = async (req, res) => {
     }
 }
 
-export default { create };
+const read = (req, res) => {
+  return res.json(req.expense)
+}
+
+const listByUser = async (req, res) => {
+  let firstDay = req.query.firstDay
+  let lastDay = req.query.lastDay
+  try {
+    let expenses = await Expense.find(
+    {
+      '$and':
+      [
+        {
+          'incurred_on':
+          {
+            '$gte': firstDay, '$lte':lastDay
+          }
+        }, 
+        {
+          'recorded_by': req.auth._id
+        }
+      ]
+    }).sort('incurred_on').populate('recorded_by', '_id name')
+
+    res.json(expenses)
+  } catch (err){
+    console.log(err)
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
+
+export default { create, listByUser, read };

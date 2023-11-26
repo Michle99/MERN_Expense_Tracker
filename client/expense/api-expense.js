@@ -18,6 +18,7 @@ const create = async (credentials, expense) => {
 
 const listByUser = async (params, credentials, signal) => {
     const query = queryString.stringify(params)
+    console.log("Query date:", query);
     try {
       let response = await fetch('/api/expenses?'+query, {
         method: 'GET',
@@ -25,8 +26,10 @@ const listByUser = async (params, credentials, signal) => {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + credentials.t
-        }
+        },
       })
+      
+      console.log("Signal:", signal);
       return await response.json()
     }catch(err){
       console.log(err)
