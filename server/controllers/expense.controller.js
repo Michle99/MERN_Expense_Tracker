@@ -18,6 +18,22 @@ const create = async (req, res) => {
     }
 }
 
+const expenseByID = async (req, res, next, id) => {
+  try {
+    let expense = await Expense.findById(id).populate('recorded_by', '_id name').exec()
+    if (!expense)
+      return res.status('400').json({
+        error: "Expense record not found"
+      })
+    req.expense = expense
+    next()
+  } catch (err){
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
+
 const read = (req, res) => {
   return res.json(req.expense)
 }
