@@ -1,8 +1,8 @@
-import express from 'express';
-import authCtrl from '../controllers/auth.controller';
-import expenseCtrl from '../controllers/expense.controller';
+import express from 'express'
+import expenseCtrl from '../controllers/expense.controller'
+import authCtrl from '../controllers/auth.controller'
 
-const router = express.Router();
+const router = express.Router()
 
 router.route('/api/expenses/current/preview')
   .get(authCtrl.requireSignin, expenseCtrl.currentMonthPreview)
@@ -20,14 +20,14 @@ router.route('/api/expenses/yearly')
   .get(authCtrl.requireSignin, expenseCtrl.yearlyExpenses)
 
 router.route('/api/expenses')
-    .post(authCtrl.requireSignin, expenseCtrl.create)
-    .get(authCtrl.requireSignin, expenseCtrl.listByUser)
+  .post(authCtrl.requireSignin, expenseCtrl.create)
+  .get(authCtrl.requireSignin, expenseCtrl.listByUser)
 
 router.route('/api/expenses/:expenseId')
-    .put(authCtrl.requireSignin, expenseCtrl.hasAuthorization, expenseCtrl.update)
-    .delete(authCtrl.requireSignin, expenseCtrl.hasAuthorization, expenseCtrl.remove)
+  // .get(authCtrl.requireSignin, expenseCtrl.read)
+  .put(authCtrl.requireSignin, expenseCtrl.hasAuthorization, expenseCtrl.update)
+  .delete(authCtrl.requireSignin, expenseCtrl.hasAuthorization, expenseCtrl.remove)
 
 router.param('expenseId', expenseCtrl.expenseByID)
 
-    
-export default router;
+export default router

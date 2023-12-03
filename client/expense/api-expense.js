@@ -14,11 +14,11 @@ const create = async (credentials, expense) => {
       } catch(err) { 
         console.log(err)
       }
-}
-
-const listByUser = async (params, credentials, signal) => {
+  }
+  
+  
+  const listByUser = async (params, credentials, signal) => {
     const query = queryString.stringify(params)
-    console.log("Query date:", query);
     try {
       let response = await fetch('/api/expenses?'+query, {
         method: 'GET',
@@ -26,17 +26,15 @@ const listByUser = async (params, credentials, signal) => {
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + credentials.t
-        },
+        }
       })
-      
-      console.log("Signal:", signal);
       return await response.json()
     }catch(err){
       console.log(err)
     }
-}
+  }
 
-const currentMonthPreview = async (credentials, signal) => {
+  const currentMonthPreview = async (credentials, signal) => {
     try {
       let response = await fetch('/api/expenses/current/preview', {
         method: 'GET',
@@ -50,9 +48,9 @@ const currentMonthPreview = async (credentials, signal) => {
     }catch(err){
       console.log(err)
     }
-}
+  }
 
-const expenseByCategory = async (credentials, signal) => {
+  const expenseByCategory = async (credentials, signal) => {
     try {
       let response = await fetch('/api/expenses/by/category', {
         method: 'GET',
@@ -66,9 +64,9 @@ const expenseByCategory = async (credentials, signal) => {
     }catch(err){
       console.log(err)
     }
-}
-
-const averageCategories = async (params, credentials, signal) => {
+  }
+  
+  const averageCategories = async (params, credentials, signal) => {
     const query = queryString.stringify(params)
     try {
       let response = await fetch('/api/expenses/category/averages?'+query, {
@@ -83,8 +81,8 @@ const averageCategories = async (params, credentials, signal) => {
     }catch(err){
       console.log(err)
     }
-}
-const yearlyExpenses = async (params, credentials, signal) => {
+  }
+  const yearlyExpenses = async (params, credentials, signal) => {
     const query = queryString.stringify(params)
     try {
       let response = await fetch('/api/expenses/yearly?'+query, {
@@ -99,9 +97,8 @@ const yearlyExpenses = async (params, credentials, signal) => {
     }catch(err){
       console.log(err)
     }
-}
-
-const plotExpenses = async (params, credentials, signal) => {
+  }
+  const plotExpenses = async (params, credentials, signal) => {
     const query = queryString.stringify(params)
     try {
       let response = await fetch('/api/expenses/plot?'+query, {
@@ -127,9 +124,9 @@ const plotExpenses = async (params, credentials, signal) => {
     }catch(err) {
       console.log(err)
     }
-}
+  }
   
-const update = async (params, credentials, expense) => {
+  const update = async (params, credentials, expense) => {
     try {
       let response = await fetch('/api/expenses/' + params.expenseId, {
         method: 'PUT',
@@ -144,9 +141,9 @@ const update = async (params, credentials, expense) => {
     } catch(err) {
       console.log(err)
     }
-}
+  }
   
-const remove = async (params, credentials) => {
+  const remove = async (params, credentials) => {
     try {
       let response = await fetch('/api/expenses/' + params.expenseId, {
         method: 'DELETE',
@@ -160,9 +157,9 @@ const remove = async (params, credentials) => {
     } catch(err) {
       console.log(err)
     }
-}
+  }
   
-export {
+  export {
     create,
     listByUser,
     currentMonthPreview,
@@ -173,5 +170,5 @@ export {
     read,
     update,
     remove
-}
+  }
   

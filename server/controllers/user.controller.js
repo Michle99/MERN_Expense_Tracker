@@ -4,10 +4,8 @@ import errorHandler from './../helpers/dbErrorHandler'
 
 const create = async (req, res) => {
   const user = new User(req.body)
-  console.log("User data: ", user)
   try {
     await user.save()
-    console.log("User data: ", user)
     return res.status(200).json({
       message: "Successfully signed up!"
     })

@@ -1,7 +1,7 @@
-import Expense from '../models/expense.model.js';
-import extend from 'lodash/extend';
-import errorHandler from './../helpers/dbErrorHandler';
-import mongoose from 'mongoose';
+import Expense from '../models/expense.model'
+import extend from 'lodash/extend'
+import errorHandler from './../helpers/dbErrorHandler'
+import mongoose from 'mongoose'
 
 const create = async (req, res) => {
   try {
@@ -51,7 +51,6 @@ const listByUser = async (req, res) => {
     })
   }
 }
-
 //1.
 const currentMonthPreview = async (req, res) => {
   const date = new Date(), y = date.getFullYear(), m = date.getMonth()

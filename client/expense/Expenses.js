@@ -82,7 +82,6 @@ export default function Expenses() {
     const date = new Date(), y = date.getFullYear(), m = date.getMonth()
     const [firstDay, setFirstDay] = useState(new Date(y, m, 1))
     const [lastDay, setLastDay] = useState(new Date(y, m + 1, 0))
-
     useEffect(() => {
         const abortController = new AbortController()
         const signal = abortController.signal
@@ -97,7 +96,6 @@ export default function Expenses() {
           abortController.abort()
         }
     }, [])
-
     const handleSearchFieldChange = name => date => {
         if(name=='firstDay'){
             setFirstDay(date)
@@ -105,7 +103,6 @@ export default function Expenses() {
             setLastDay(date)
         }
     }
-
     const searchClicked = () => {
         listByUser({firstDay: firstDay, lastDay: lastDay},{t: jwt.token}).then((data) => {
             if (data.error) {
@@ -115,19 +112,16 @@ export default function Expenses() {
             }
         })
     }
-
     const handleChange = (name, index) => event => {
         const updatedExpenses = [...expenses]
         updatedExpenses[index][name] = event.target.value
         setExpenses(updatedExpenses)
     }
-
     const handleDateChange = index => date => {
         const updatedExpenses = [...expenses]
         updatedExpenses[index].incurred_on = date
         setExpenses(updatedExpenses)
-    }
-
+      }
     const clickUpdate = (index) => {
         let expense = expenses[index]
         update({
@@ -143,7 +137,6 @@ export default function Expenses() {
             }
         })
     }
-
     const removeExpense = (expense) => {
         const updatedExpenses = [...expenses]
         const index = updatedExpenses.indexOf(expense)
@@ -154,7 +147,6 @@ export default function Expenses() {
     if (redirectToSignin) {
         return <Redirect to='/signin'/>
     }
-    
     return (
       <div className={classes.root}>
       <div className={classes.search}>
@@ -246,4 +238,4 @@ export default function Expenses() {
         })}
       </div>
     )
-}
+  }
